@@ -1,18 +1,16 @@
 /*jshint esversion:6*/
+/*eslint-env es6*/
+exports = module.exports = {};
 
 const fs = require('fs');
 
-const bitmap = fs.readFileSync(__dirname + '/non-palette-bitmap.bmp');
+const bitmap  = exports.bitmap = fs.readFileSync(__dirname + '/non-palette-bitmap.bmp');
 
 const headers = {};
-
-console.log(bitmap.slice(54,64));
 
 headers.BitmapType = bitmap.toString('ascii',0,2);
 headers.Size = bitmap.readUInt32LE(2);
 headers.PixelStart = bitmap.readUInt32LE(10);
-
-console.log(bitmap.readUInt8(54), bitmap.readUInt8(55), bitmap.readUInt8(56), bitmap.readUInt8(57));
 
 console.log(headers);
 
@@ -30,7 +28,7 @@ console.log(headers);
 // light green 09
 // light red 1c
 
-var byteArray=[];
+var byteArray = exports.byteArray =[];
 
 for(i=headers.PixelStart; i<headers.Size; i++) {
   byteArray.push(bitmap[i]);
@@ -38,7 +36,7 @@ for(i=headers.PixelStart; i<headers.Size; i++) {
 
 // console.log(byteArray);
 
-var newbyte =[];
+var newbyte = exports.newbyte =[];
 // Transform the data------------------
 for(i=0; i<byteArray.length; i++) {
   if(byteArray[i] === 0){
@@ -54,7 +52,7 @@ headerBit = bitmap.slice(0,54);
 xformBuf = Buffer.from(newbyte);
 
 
-newImg = Buffer.concat([headerBit,xformBuf]);
+newImg = exports.newImg = Buffer.concat([headerBit,xformBuf]);
 
 console.log(newImg);
 
@@ -69,7 +67,7 @@ console.log('newImg ' + newImg.slice(40,80));
 
 // Make new bitmap-----------------------
 
-fs.writeFile('newImg2.bmp',newImg,(err)=> {
+fs.writeFile('newImg.bmp',newImg,(err)=> {
   if (err) throw err;
   console.log('success!');
 });
