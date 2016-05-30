@@ -39,15 +39,19 @@ for(i=headers.PixelStart; i<headers.Size; i++) {
 var newbyte = exports.newbyte =[];
 // Transform the data------------------
 for(i=0; i<byteArray.length; i++) {
-  if(byteArray[i] === 0){
-    newbyte.push(110);
+  // if(byteArray[i] === 75){
+  //   newbyte.push(0);
+  // }
+
+  if (byteArray[i] === 00) {
+    newbyte.push(Math.random()*255);
   }
   else {
     newbyte.push(byteArray[i]);
   }
 }
 
-headerBit = bitmap.slice(0,54);
+headerBit = exports.headerBit = bitmap.slice(0,54);
 
 xformBuf = Buffer.from(newbyte);
 
