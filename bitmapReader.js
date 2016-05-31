@@ -53,7 +53,7 @@ for(i=0; i<byteArray.length; i++) {
 
 headerBit = exports.headerBit = bitmap.slice(0,54);
 
-xformBuf = Buffer.from(newbyte);
+xformBuf = Buffer.from(new Uint8Array(newbyte));
 
 
 newImg = exports.newImg = Buffer.concat([headerBit,xformBuf]);
