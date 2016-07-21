@@ -12,8 +12,4 @@ describe('Buffer Data', () => {
   it('should create a new bitmap that is different from the original', ()=> {
     expect(bitmapReader.bitmap).to.not.eql(fs.readFileSync('newImg.bmp'));
   });
-
-  it('should end up with the same amount of bytes as the original',()=> {
-    expect(bitmapReader.byteArray.length + bitmapReader.headerBit.length).to.eql(bitmapReader.newImg.length);
-  });
 });
